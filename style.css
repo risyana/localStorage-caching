@@ -4,10 +4,6 @@
   box-sizing: border-box;
 }
 
-body {
-  text-align: center;
-}
-
 .container {
   border: 1px solid gray;
   display: flex;
