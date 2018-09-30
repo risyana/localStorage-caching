@@ -1,0 +1,40 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  text-align: center;
+}
+
+.container {
+  border: 1px solid gray;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+  padding: 10px;
+  margin: 0;
+  text-align: center;
+  align-items: center;
+}
+
+.container>* {
+  width: 300px;
+}
+
+.myform {
+  padding: 5px;
+}
+
+.listContainer {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid gray;
+}
+
+.loadMore {
+  width: 100px;
+  margin: 10px;
+}
