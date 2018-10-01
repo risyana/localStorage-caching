@@ -1,6 +1,6 @@
 // API
-const ENDPOINT = 'https://en.wikipedia.org/w/api.php';
-const OPTION = '?action=query&list=search&utf8=&format=json&srsearch=';
+const ENDPOINT = "https://en.wikipedia.org/w/api.php";
+const OPTION = "?action=query&list=search&utf8=&format=json&origin=*&srsearch=";
 
 // Local Storage Model
 
@@ -17,24 +17,27 @@ const OPTION = '?action=query&list=search&utf8=&format=json&srsearch=';
 // Local Storage
 
 const initStorage = () => {
-  console.log('init storage');
+  console.log("init storage");
   const store = window.localStorage;
   if (!store.searchResult) {
-    store.setItem('searchResult', '{}');
+    store.setItem("searchResult", "{}");
   }
 };
 
 const storage = window.localStorage;
 
 // populate DOM
-const myForm = document.querySelector('.myform');
-const listContainer = document.querySelector('.listContainer');
+const myForm = document.querySelector(".myform");
+const listContainer = document.querySelector(".listContainer");
 
 // checking existence in local storage
-const isExistInLocalStorage = (searchKey) => {
-  console.log('check data existence in local storage');
+const isExistInLocalStorage = searchKey => {
+  console.log("check data existence in local storage");
   const currentStorage = JSON.parse(storage.searchResult);
-  const hasSearchKey = Object.prototype.hasOwnProperty.call(currentStorage, searchKey);
+  const hasSearchKey = Object.prototype.hasOwnProperty.call(
+    currentStorage,
+    searchKey
+  );
   if (hasSearchKey) {
     return true;
   }
@@ -43,15 +46,15 @@ const isExistInLocalStorage = (searchKey) => {
 
 // set new data to local storage
 const setDataToLocalStorage = (query, data) => {
-  console.log('write to local storage');
+  console.log("write to local storage");
   const oldSearchResult = JSON.parse(storage.searchResult);
   const updatedSearchResult = { ...oldSearchResult, [query]: data };
-  storage.setItem('searchResult', JSON.stringify(updatedSearchResult));
+  storage.setItem("searchResult", JSON.stringify(updatedSearchResult));
 };
 
 // fetch data
-const fetchData = async (url) => {
-  console.log('fetch');
+const fetchData = async url => {
+  console.log("fetch");
   try {
     let result = await fetch(url);
     result = await result.json();
@@ -61,13 +64,12 @@ const fetchData = async (url) => {
   }
 };
 
-
 // render
 const render = (articles, container) => {
-  console.log('render');
+  console.log("render");
   while (container.firstChild) container.removeChild(container.firstChild);
-  articles.forEach((article) => {
-    const div = document.createElement('div');
+  articles.forEach(article => {
+    const div = document.createElement("div");
     const text = document.createTextNode(article.title);
     div.appendChild(text);
     container.appendChild(div);
@@ -75,7 +77,7 @@ const render = (articles, container) => {
 };
 
 // main
-const main = async (query) => {
+const main = async query => {
   await initStorage();
   const isExist = isExistInLocalStorage(query);
   if (!isExist) {
@@ -86,7 +88,7 @@ const main = async (query) => {
 };
 
 // submit handler
-const submitHandler = async (e) => {
+const submitHandler = async e => {
   const searchKey = e.target.elements.query.value;
   e.preventDefault();
   if (!searchKey) return null;
@@ -95,6 +97,6 @@ const submitHandler = async (e) => {
 };
 
 // add event listener
-myForm.addEventListener('submit', submitHandler);
+myForm.addEventListener("submit", submitHandler);
 
-main('hello world');
+main("hello world");
