@@ -48,7 +48,7 @@ const isExistInLocalStorage = searchKey => {
 const setDataToLocalStorage = (query, data) => {
   console.log("write to local storage");
   const oldSearchResult = JSON.parse(storage.searchResult);
-  const updatedSearchResult = { ...oldSearchResult, [query]: data };
+  const updatedSearchResult = Object.assign(oldSearchResult, { [query]: data });
   storage.setItem("searchResult", JSON.stringify(updatedSearchResult));
 };
 
