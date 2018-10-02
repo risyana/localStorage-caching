@@ -19,19 +19,17 @@ const OPTION = "?action=query&list=search&utf8=&format=json&origin=*&srsearch=";
 const initStorage = () => {
   console.log("init storage");
   const store = window.localStorage;
-  if (!store.searchResult) {
-    store.setItem("searchResult", "{}");
-  }
+  if (!store) return null;
+  if (!store.searchResult) store.setItem("searchResult", "{}");
+  return store;
 };
 
-const storage = window.localStorage;
-
 // populate DOM
-const myForm = document.querySelector(".myform");
-const listContainer = document.querySelector(".listContainer");
+const MY_FORM = document.querySelector(".myform");
+const LIST_CONTAINER = document.querySelector(".listContainer");
 
 // checking existence in local storage
-const isExistInLocalStorage = searchKey => {
+const isExistInLocalStorage = (storage, searchKey) => {
   console.log("check data existence in local storage");
   const currentStorage = JSON.parse(storage.searchResult);
   const hasSearchKey = Object.prototype.hasOwnProperty.call(
@@ -45,10 +43,12 @@ const isExistInLocalStorage = searchKey => {
 };
 
 // set new data to local storage
-const setDataToLocalStorage = (query, data) => {
+const setDataToLocalStorage = (storage, searchKey, data) => {
   console.log("write to local storage");
   const oldSearchResult = JSON.parse(storage.searchResult);
-  const updatedSearchResult = Object.assign(oldSearchResult, { [query]: data });
+  const updatedSearchResult = Object.assign(oldSearchResult, {
+    [searchKey]: data
+  });
   storage.setItem("searchResult", JSON.stringify(updatedSearchResult));
 };
 
@@ -77,14 +77,14 @@ const render = (articles, container) => {
 };
 
 // main
-const main = async query => {
-  await initStorage();
-  const isExist = isExistInLocalStorage(query);
+const main = async searchKey => {
+  const storage = initStorage();
+  const isExist = isExistInLocalStorage(storage, searchKey);
   if (!isExist) {
-    const result = await fetchData(`${ENDPOINT}${OPTION}${query}`);
-    await setDataToLocalStorage(query, result.query);
+    const result = await fetchData(`${ENDPOINT}${OPTION}${searchKey}`);
+    await setDataToLocalStorage(storage, searchKey, result.query);
   }
-  render(JSON.parse(storage.searchResult)[query].search, listContainer);
+  render(JSON.parse(storage.searchResult)[searchKey].search, LIST_CONTAINER);
 };
 
 // submit handler
@@ -97,6 +97,6 @@ const submitHandler = async e => {
 };
 
 // add event listener
-myForm.addEventListener("submit", submitHandler);
+MY_FORM.addEventListener("submit", submitHandler);
 
 main("hello world");
