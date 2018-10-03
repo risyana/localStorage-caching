@@ -91,8 +91,17 @@ const APP = (() => {
     main(initialSearchKey);
   };
 
+  const test = {
+    initStorage,
+    isExistInLocalStorage,
+    fetchData,
+    setDataToLocalStorage,
+    render
+  };
+
   return {
-    init
+    init,
+    test
   };
 })();
 
