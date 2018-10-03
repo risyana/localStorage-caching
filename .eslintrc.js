@@ -6,7 +6,9 @@ module.exports = {
     "globals": {
         "window": true,
         "document": true,
-        "fetch": true
+        "fetch": true,
+        "describe": true,
+        "it": true
     },
     "plugins": ["prettier"],
     "rules": {
