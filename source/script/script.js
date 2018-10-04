@@ -17,7 +17,7 @@ const APP = (() => {
   const LIST_CONTAINER = document.querySelector(".listContainer");
 
   const initStorage = () => {
-    console.log("init storage");
+    // console.log("init storage");
     const store = window.localStorage;
     if (!store) return null;
     if (!store.searchResult) store.setItem("searchResult", "{}");
@@ -25,7 +25,7 @@ const APP = (() => {
   };
 
   const isExistInLocalStorage = (storage, searchKey) => {
-    console.log("check data existence in local storage");
+    // console.log("check data existence in local storage");
     const currentStorage = JSON.parse(storage.searchResult);
     const hasSearchKey = Object.prototype.hasOwnProperty.call(
       currentStorage,
@@ -38,7 +38,7 @@ const APP = (() => {
   };
 
   const setDataToLocalStorage = (storage, searchKey, data) => {
-    console.log("write to local storage");
+    // console.log("write to local storage");
     const oldSearchResult = JSON.parse(storage.searchResult);
     const updatedSearchResult = Object.assign(oldSearchResult, {
       [searchKey]: data
@@ -47,7 +47,7 @@ const APP = (() => {
   };
 
   const fetchData = async url => {
-    console.log("fetch");
+    // console.log("fetch");
     try {
       let result = await fetch(url);
       result = await result.json();
@@ -58,7 +58,7 @@ const APP = (() => {
   };
 
   const render = (articles, container) => {
-    console.log("render");
+    // console.log("render");
     while (container.firstChild) container.removeChild(container.firstChild);
     articles.forEach(article => {
       const div = document.createElement("div");
@@ -105,4 +105,4 @@ const APP = (() => {
   };
 })();
 
-APP.init("Selamat Datang");
+exports.APP = APP;
