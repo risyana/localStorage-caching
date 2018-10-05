@@ -8,7 +8,9 @@ module.exports = {
         "document": true,
         "fetch": true,
         "describe": true,
-        "it": true
+        "it": true,
+        "before": true,
+        "after": true
     },
     "plugins": ["prettier"],
     "rules": {
