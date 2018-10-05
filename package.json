@@ -20,6 +20,7 @@
     "jsdom": "12.1.0",
     "jsdom-global": "3.0.2",
     "mocha": "^5.2.0",
+    "node-fetch": "^2.2.0",
     "nyc": "^13.0.1",
     "prettier": "^1.14.3",
     "reload": "^2.3.1"

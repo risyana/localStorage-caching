@@ -2,6 +2,7 @@
 /* https://airbnb.io/enzyme/docs/guides/jsdom.html */
 
 const { JSDOM } = require("jsdom");
+const fetch = require("node-fetch");
 
 const text = `
 <!DOCTYPE html>
@@ -41,6 +42,7 @@ function copyProps(src, target) {
   Object.defineProperties(target, props);
 }
 
+global.fetch = fetch;
 global.window = window;
 global.document = window.document;
 global.navigator = {
