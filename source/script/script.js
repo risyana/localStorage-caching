@@ -39,11 +39,16 @@ const APP = (() => {
 
   const setDataToLocalStorage = (storage, searchKey, data) => {
     // console.log("write to local storage");
-    const oldSearchResult = JSON.parse(storage.searchResult);
-    const updatedSearchResult = Object.assign(oldSearchResult, {
-      [searchKey]: data
-    });
-    storage.setItem("searchResult", JSON.stringify(updatedSearchResult));
+    try {
+      const oldSearchResult = JSON.parse(storage.searchResult);
+      const updatedSearchResult = Object.assign(oldSearchResult, {
+        [searchKey]: data
+      });
+      storage.setItem("searchResult", JSON.stringify(updatedSearchResult));
+      return true;
+    } catch (err) {
+      return err;
+    }
   };
 
   const fetchData = async url => {
