@@ -65,7 +65,7 @@ describe("APP", () => {
       const searchKey = "Some Search Key";
       const data = { search: [{ title: "sample" }], searchInfo: { x: "x" } };
       const result = APP.test.setDataToLocalStorage(storage, searchKey, data);
-      expect(result).to.be.true;
+      expect(result).to.equal(true);
       expect(JSON.parse(storage.getItem("searchResult"))).to.have.property(
         searchKey
       );
@@ -76,14 +76,37 @@ describe("APP", () => {
   });
 
   describe("Render", () => {
+    let container = LIST_CONTAINER;
     describe("Check Paremeter", () => {
-      it("articles should be an array of object");
-      it("article should own propery 'title'");
-      it("container should be a div ");
+      it("Should throw error, since articles is not an array of object ", () => {
+        const article = [["my title 1", "my title 2"]];
+        const result = APP.test.render(article, container);
+        expect(result).to.throw(TypeError);
+      });
+      it("Should throw error, since article does not have 'title'", () => {
+        const article = [{ head: "my title 1" }];
+        const result = APP.test.render(article, container);
+        expect(result).to.throw(TypeError);
+      });
+      it("Should throw error, since container is not a div ", () => {
+        const article = [{ title: "title 1" }];
+        container = document.createElement("span");
+        const result = APP.test.render(article, container);
+        expect(result).to.throw(TypeError);
+      });
     });
     describe("Check Result", () => {
-      it("container should have $n children element");
-      it("container's children element should be a div ");
+      const article = [{ title: "title 1" }, { title: "title 2" }];
+      it("container should have $n children element", () => {
+        const result = APP.test.render(article, container);
+        expect(result).to.equal(true);
+        expect(container.children.length).to.equal(article.length);
+      });
+      it("container's children element should be a div ", () => {
+        const result = APP.test.render(article, container);
+        expect(result).to.equal(true);
+        expect(container.children[0]).to.be.a("HTMLDivElement");
+      });
     });
   });
 });
