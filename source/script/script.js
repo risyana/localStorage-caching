@@ -71,6 +71,7 @@ const APP = (() => {
       div.appendChild(text);
       container.appendChild(div);
     });
+    return true;
   };
 
   const main = async searchKey => {
