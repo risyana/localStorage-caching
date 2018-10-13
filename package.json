@@ -4,13 +4,14 @@
   "description": "caching with localStorage",
   "main": "index.js",
   "scripts": {
-    "start": "reload -b",
+    "start": "browser-sync start --server --directory --files '**/*'",
     "test": "mocha --require test/setup.js -w",
-    "testCoverage": "nyc --reporter=html --reporter=text mocha --require test/setup.js"
+    "testCoverage": "nyc --reporter=text --reporter=html  mocha  --require test/setup.js"
   },
   "author": "risyana@gmail.com",
   "license": "ISC",
   "devDependencies": {
+    "browser-sync": "^2.26.2",
     "chai": "^4.2.0",
     "eslint": "^5.6.1",
     "eslint-config-airbnb-base": "^13.1.0",
@@ -22,7 +23,6 @@
     "mocha": "^5.2.0",
     "node-fetch": "^2.2.0",
     "nyc": "^13.0.1",
-    "prettier": "^1.14.3",
-    "reload": "^2.3.1"
+    "prettier": "^1.14.3"
   }
 }
