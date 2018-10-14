@@ -18,10 +18,13 @@ const APP = (() => {
 
   const initStorage = () => {
     // console.log("init storage");
-    const store = window.localStorage;
-    if (!store) return null;
-    if (!store.searchResult) store.setItem("searchResult", "{}");
-    return store;
+    try {
+      const store = window.localStorage;
+      if (!store.searchResult) store.setItem("searchResult", "{}");
+      return store;
+    } catch (err) {
+      return err;
+    }
   };
 
   const isExistInLocalStorage = (storage, searchKey) => {
@@ -74,27 +77,44 @@ const APP = (() => {
     return true;
   };
 
-  const main = async searchKey => {
-    const storage = initStorage();
-    const isExist = isExistInLocalStorage(storage, searchKey);
-    if (!isExist) {
-      const result = await fetchData(`${ENDPOINT}${OPT}${searchKey}`);
-      await setDataToLocalStorage(storage, searchKey, result.query);
+  const main = async (searchKey, container) => {
+    try {
+      if (typeof searchKey !== "string") throw new Error();
+      const storage = initStorage();
+      const isExist = isExistInLocalStorage(storage, searchKey);
+      if (!isExist) {
+        const result = await fetchData(`${ENDPOINT}${OPT}${searchKey}`);
+        await setDataToLocalStorage(storage, searchKey, result.query);
+      }
+      render(JSON.parse(storage.searchResult)[searchKey].search, container);
+      return true;
+    } catch (err) {
+      return null;
     }
-    render(JSON.parse(storage.searchResult)[searchKey].search, LIST_CONTAINER);
   };
 
-  const submitHandler = async e => {
-    const searchKey = e.target.elements.query.value;
-    e.preventDefault();
-    if (!searchKey) return null;
-    await main(searchKey);
-    return true;
+  const submitHandler = async (e, container = LIST_CONTAINER) => {
+    try {
+      const searchKey = e.target.elements.query.value;
+      e.preventDefault();
+      if (!searchKey) throw new Error();
+      const result = await main(searchKey, container);
+      if (!result) return null;
+      return true;
+    } catch (error) {
+      return null;
+    }
   };
 
-  const init = initialSearchKey => {
-    MY_FORM.addEventListener("submit", submitHandler);
-    main(initialSearchKey);
+  const init = async (initialSearchKey, container = LIST_CONTAINER) => {
+    try {
+      MY_FORM.addEventListener("submit", submitHandler);
+      const result = await main(initialSearchKey, container);
+      if (!result) throw new Error();
+      return true;
+    } catch (error) {
+      return null;
+    }
   };
 
   const test = {
@@ -102,7 +122,10 @@ const APP = (() => {
     isExistInLocalStorage,
     fetchData,
     setDataToLocalStorage,
-    render
+    render,
+    submitHandler,
+    main,
+    init
   };
 
   return {
