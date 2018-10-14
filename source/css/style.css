@@ -1,14 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Questrial');
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
+body {
+  font-family: 'Questrial', cursive;
+  background-color: #eee;
+}
+
 .container {
-  border: 1px solid gray;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 70vh;
   justify-content: space-between;
   padding: 10px;
   margin: 0;
@@ -21,13 +27,54 @@
 }
 
 .myform {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.myform>* {
+  flex-grow: 1;
+  height: 30px;
   padding: 5px;
+  outline: none;
+  margin-right: 4px;
+}
+
+input[type=submit] {
+  margin-right: 0;
+}
+
+input[type=submit]:hover {
+  cursor: pointer;
+  opacity: 0.7;
 }
 
 .listContainer {
   flex-grow: 1;
   padding: 10px;
-  border: 1px solid gray;
+  border: 1px solid goldenrod;
+  background-color: antiquewhite;
+}
+
+.listContainer>div {
+  border: 1px solid #cecece;
+  background-color: white;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 0;
+  text-align: left;
+  font-size: 0.9em;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  transition: 0.3s border;
+  transition: 0.3s box-shadow;
+  ;
+}
+
+.listContainer>div:hover {
+  border: 1px solid goldenrod;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.1);
+  transition: 0.3s border;
+  transition: 0.3s box-shadow;
 }
 
 .loadMore {
