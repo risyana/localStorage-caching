@@ -10,6 +10,7 @@ module.exports = {
         "describe": true,
         "it": true,
         "before": true,
+        "beforeEach": true,
         "after": true
     },
     "plugins": ["prettier"],
