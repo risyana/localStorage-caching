@@ -115,6 +115,12 @@ describe("APP", () => {
   describe("Render", () => {
     describe("Check Paremeter. It should error because :", () => {
       let container = LIST_CONTAINER;
+      it("articles is not an array", () => {
+        const article = "some string";
+        const result = APP.test.render(article, container);
+        expect(result).to.equal(null);
+      })
+
       it("articles is not an array of object ", () => {
         const article = ["my title 1", "my title 2"];
         const result = APP.test.render(article, container);
