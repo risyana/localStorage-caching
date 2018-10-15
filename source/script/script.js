@@ -67,6 +67,13 @@ const APP = (() => {
 
   const render = (articles, container) => {
     // console.log("render");
+    // validate params
+    if (!Array.isArray(articles)) return null;
+    if (typeof articles[0] !== "object") return null;
+    if (!Object.prototype.hasOwnProperty.call(articles[0], "title"))
+      return null;
+    if (!(container instanceof HTMLDivElement)) return null;
+
     while (container.firstChild) container.removeChild(container.firstChild);
     articles.forEach(article => {
       const div = document.createElement("div");
