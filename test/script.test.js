@@ -113,31 +113,30 @@ describe("APP", () => {
   });
 
   describe("Render", () => {
-    let container = LIST_CONTAINER;
-
     describe("Check Paremeter. It should error because :", () => {
-
+      let container = LIST_CONTAINER;
       it("articles is not an array of object ", () => {
-        const article = [["my title 1", "my title 2"]];
+        const article = ["my title 1", "my title 2"];
         const result = APP.test.render(article, container);
-        expect(result).to.throw(TypeError);
+        expect(result).to.equal(null);
       });
 
       it("article does not have 'title'", () => {
         const article = [{ head: "my title 1" }];
         const result = APP.test.render(article, container);
-        expect(result).to.throw(TypeError);
+        expect(result).to.equal(null);
       });
 
       it("container is not a div ", () => {
         const article = [{ title: "title 1" }];
         container = document.createElement("span");
         const result = APP.test.render(article, container);
-        expect(result).to.throw(TypeError);
+        expect(result).to.equal(null);
       });
     });
 
     describe("Check Result", () => {
+      const container = LIST_CONTAINER;
       const article = [{ title: "title 1" }, { title: "title 2" }];
 
       it("container should have $n children element", () => {
