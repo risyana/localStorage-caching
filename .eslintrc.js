@@ -11,7 +11,8 @@ module.exports = {
         "it": true,
         "before": true,
         "beforeEach": true,
-        "after": true
+        "after": true,
+        "HTMLDivElement": true
     },
     "plugins": ["prettier"],
     "rules": {
