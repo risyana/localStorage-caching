@@ -6,7 +6,7 @@
   "scripts": {
     "start": "browser-sync start --server --files '*.js, *.html, *.css'",
     "test": "mocha --require test/setup.js -w --timeout 100000",
-    "testCoverage": "nyc --reporter=text --reporter=html  mocha  --require test/setup.js"
+    "testCoverage": "nyc --reporter=text --reporter=html  mocha  --require test/setup.js --timeout 100000"
   },
   "author": "risyana@gmail.com",
   "license": "ISC",
