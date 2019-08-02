@@ -17,7 +17,7 @@ describe("APP", () => {
     let temp;
     before(() => {
       temp = window;
-    })
+    });
     it("should return Storage", async () => {
       const result = APP.test.initStorage();
       expect(result).to.be.an("Storage");
@@ -33,7 +33,7 @@ describe("APP", () => {
     });
     after(() => {
       window = temp;
-    })
+    });
   });
 
   describe("is Exist in Local Storage ?", () => {
